@@ -1,8 +1,10 @@
 _**Introduction**_
-/nWith the growing use of technology in education, many traditional processes are now shifting toward digital solutions. One such important process is the creation of student identity cards. In many institutions, ID cards are still prepared manually, which often takes a lot of time and may result in mistakes or duplicate records.
+
+With the growing use of technology in education, many traditional processes are now shifting toward digital solutions. One such important process is the creation of student identity cards. In many institutions, ID cards are still prepared manually, which often takes a lot of time and may result in mistakes or duplicate records.
 To understand how real-world applications work, we developed a College ID Card Generator using Java. This application allows users to enter student details through a graphical interface, store the data in a database, and generate a digital college ID card. Working on this project helped us understand how Java-based GUI applications connect with databases in practical scenarios.
 
 _**Problem Statement**_
+
 In many colleges, student ID cards are created using manual or semi-digital methods. These methods often lead to problems such as incorrect data entry, repeated records, and difficulty in maintaining student information.
 Our project aims to solve these issues by providing a simple, automated, and organized system for managing student details and generating ID cards efficiently.
 
