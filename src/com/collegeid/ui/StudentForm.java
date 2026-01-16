@@ -11,7 +11,7 @@ import com.collegeid.dto.StudentDTO;
 public class StudentForm extends JFrame {
 
     JTextField txtName, txtEnroll, txtCourse, txtShift, txtMobile, txtCollege;
-    ImageIcon uploadedPhoto;   // photo reference
+    ImageIcon uploadedPhoto;
 
     public StudentForm() {
 
@@ -22,6 +22,7 @@ public class StudentForm extends JFrame {
 
         JPanel panel = new JPanel(new GridLayout(8, 2, 10, 10));
         panel.setBorder(new TitledBorder("Student Details"));
+        panel.setBackground(Color.cyan);
         add(panel);
 
         txtName = new JTextField();
@@ -36,20 +37,26 @@ public class StudentForm extends JFrame {
 
         panel.add(new JLabel("Name:"));
         panel.add(txtName);
+
         panel.add(new JLabel("Enrollment No:"));
         panel.add(txtEnroll);
+
         panel.add(new JLabel("Course:"));
         panel.add(txtCourse);
+
         panel.add(new JLabel("Shift:"));
         panel.add(txtShift);
+
         panel.add(new JLabel("Mobile:"));
         panel.add(txtMobile);
+
         panel.add(new JLabel("College:"));
         panel.add(txtCollege);
+
         panel.add(btnUpload);
         panel.add(btnGenerate);
 
-        // Upload Photo
+        //Upload Photo 
         btnUpload.addActionListener(e -> {
             JFileChooser fc = new JFileChooser();
             if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -59,31 +66,43 @@ public class StudentForm extends JFrame {
             }
         });
 
-        // Generate Button
+        //Generate Button
         btnGenerate.addActionListener(e -> {
 
-            if (txtName.getText().isEmpty() || txtEnroll.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this,
-                        "Name and Enrollment are required");
+            if (txtName.getText().trim().isEmpty() ||
+                txtEnroll.getText().trim().isEmpty()) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Name and Enrollment are required",
+                        "Validation Error",
+                        JOptionPane.WARNING_MESSAGE
+                );
                 return;
             }
 
-            // Save to DB
             StudentDTO dto = new StudentDTO();
-            dto.setName(txtName.getText());
-            dto.setEnrollment(txtEnroll.getText());
-            dto.setCourse(txtCourse.getText());
-            dto.setShift(txtShift.getText());
-            dto.setPhone(txtMobile.getText());
+            dto.setName(txtName.getText().trim());
+            dto.setEnrollment(txtEnroll.getText().trim());
+            dto.setCourse(txtCourse.getText().trim().toUpperCase());
+            dto.setShift(txtShift.getText().trim());
+            dto.setPhone(txtMobile.getText().trim());
 
             try {
                 StudentDAO dao = new StudentDAO();
-                dao.saveStudent(dto);
+                String msg = dao.saveStudent(dto);
+                JOptionPane.showMessageDialog(this, msg);
             } catch (ClassNotFoundException | SQLException ex) {
                 ex.printStackTrace();
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Database Error: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
             }
 
-            // Open ID Card in NEW WINDOW
             new IDCardPreview(
                     txtName.getText(),
                     txtEnroll.getText(),
@@ -97,6 +116,6 @@ public class StudentForm extends JFrame {
     }
 
     public static void main(String[] args) {
-        new StudentForm().setVisible(true);
+        SwingUtilities.invokeLater(() -> new StudentForm().setVisible(true));
     }
 }

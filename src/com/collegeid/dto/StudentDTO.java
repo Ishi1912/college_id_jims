@@ -2,7 +2,6 @@ package com.collegeid.dto;
 
 public class StudentDTO {
 
-    // Private fields (encapsulation)
     private String enrollment;
     private String name;
     private String course;

@@ -6,9 +6,7 @@ import java.awt.*;
 
 public class IDCardPreview extends JFrame {
 
-    public IDCardPreview(String name, String enroll, String course,
-                         String shift, String mobile, String college,
-                         ImageIcon photoIcon) {
+    public IDCardPreview(String name, String enroll, String course, String shift, String mobile, String college, ImageIcon photoIcon) {
 
         setTitle("ID Card");
         setSize(330, 450);
